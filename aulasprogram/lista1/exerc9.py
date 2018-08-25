@@ -1,0 +1,5 @@
+num1 = float (input("Digite o primeiro número: "))
+num2 = float (input("Digite o segundo número: "))
+num3 = float (input("Digite o terceiro número: "))
+soma = pow(num1,2) + pow(num2,2) + pow(num3, 2)
+print ("A soma dos quadrados é: ", soma)

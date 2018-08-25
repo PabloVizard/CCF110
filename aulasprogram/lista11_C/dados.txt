@@ -1,0 +1,4 @@
+M Joao Castanho 1.80 68
+F Maria Verde 1.70 56.1
+M Jose Grigorio 1.70 76.0
+F Estela Miranda 1.63 58.2

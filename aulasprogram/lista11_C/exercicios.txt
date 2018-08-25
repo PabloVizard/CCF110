@@ -1,0 +1,164 @@
+exerc1 ----------------------------------------------------------------------------------------
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+    double nota1, nota2, nota3, media;
+    char mat[4], nome[30];
+    FILE *arq;
+    arq = fopen("/home/estela/CLionProjects/Treino/alunos.txt", "r");
+    if (arq == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+
+    while (fscanf(arq, "%s", mat) != EOF){
+        fscanf(arq, "%s", nome);
+        fscanf(arq, "%lf", &nota1);
+        fscanf(arq, "%lf", &nota2);
+        fscanf(arq, "%lf", &nota3);
+        media = (nota1 + nota2 + nota3)/3;
+        if(media>=8.5){
+            printf("Excelente!\n");
+            printf("%s %s %.1lf\n", mat, nome, media);
+        } else if(media>=7.0 && media<8.5){
+            printf("Bom!\n");
+            printf("%s %s %.1lf\n", mat, nome, media);
+        } else if(media<7.0){
+            printf("Preocupante!\n");
+            printf("%s %s %.1lf\n", mat, nome, media);
+        }
+    }
+}
+
+exer 2-----------------------------------------------------------------------------------------
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+    int votos[5], temp[5],i,cont=1, voto, j;
+    FILE *arq;
+    arq = fopen("/home/estela/CLionProjects/Treino/votos.txt", "r");
+    if (arq == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+
+    for(i=0; i<5; i++){
+        temp[i] = cont;
+        cont++;
+    }
+
+    while(fscanf(arq, "%d", &voto) != EOF){
+        if(voto == 1) votos[0]++;
+        else if(voto == 2) votos[1]++;
+        else if(voto == 3) votos[2]++;
+        else if(voto == 4) votos[3]++;
+        else if(voto == 5) votos[4]++;
+    }
+
+    for(i=0; i<5; i++){
+        for(j=i; j<5; j++){
+            if(votos[i] < votos[j]){
+                cont = votos[i];
+                votos[i] = votos[j];
+                votos[j] = cont;
+
+                cont = temp[i];
+                temp[i] = temp[j];
+                temp[j] = cont;
+            }
+        }
+    }
+
+    printf("Candidato mais Votado: %d, com %d votos!\n", temp[0], votos[0]);
+    printf("Candidato menos Votado: %d, com %d votos!\n", temp[4], votos[4]);
+}
+
+exerc3 ----------------------------------------------------------------------------------------
+int main() {
+    int par;
+    FILE *arq, *pares;
+    pares = fopen("../pares.txt", "w");
+    arq = fopen("/home/estela/CLionProjects/Treino/numeros.txt", "r");
+    if (arq == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+    if (pares == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+
+    while (fscanf(arq, "%d", &par) != EOF){
+        if(par%2==0){
+            fprintf(pares, "%d\n", par);
+            printf("%d\n", par);
+        }
+    }
+    fclose(arq);
+    fclose(pares);
+    printf("Arquivo Gravado!");
+}
+
+exerc 4--------------------------------------------------------------------------
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+    char sexo, pessoa[100];
+    FILE *arq, *masculino, *feminino;
+    masculino = fopen("../masc.txt", "w");
+    feminino = fopen("../fem.txt", "w");
+    arq = fopen("/home/estela/CLionProjects/Treino/dados.txt", "r");
+    if (arq == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+    if (masculino == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+    if (feminino == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+
+    while (fscanf(arq, "%c", &sexo) != EOF){
+        fgets(pessoa, 100, arq);
+        if(sexo == 'M'){
+            fprintf(masculino, "%s", pessoa);
+        } else if (sexo == 'F'){
+            fprintf(feminino, "%s", pessoa);
+        }
+    }
+    fclose(arq);
+    fclose(feminino);
+    fclose(masculino);
+    printf("Arquivo Gravado!");
+}
+
+exerc 5-----------------------------------------------------------------------------
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+int main() {
+    int num1, num2, result=1;
+    char sinal;
+    FILE *arq;
+    arq = fopen("../calculadora.txt", "w");
+    if (arq == NULL){
+        printf("Erro de abertura do arquivo\n");
+    }
+
+    while (result!=0) {
+        scanf("%d %c %d", &num1, &sinal, &num2);
+        if (sinal == '+') {
+            result = num1 + num2;
+            printf("%d\n", result);
+            fprintf(arq, "%d %c %d = %d\n", num1, sinal, num2, result);
+        }
+        if (sinal == '-') {
+            result = num1 - num2;
+            printf("%d\n", result);
+            fprintf(arq, "%d %c %d = %d\n", num1, sinal, num2, result);
+        }
+    }
+}
